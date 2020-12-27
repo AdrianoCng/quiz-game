@@ -3,6 +3,7 @@ import './App.css';
 
 // components
 import Settings from './components/Settings';
+import QuestionCard from './components/QuestionCard';
 
 // Types & Utils
 import { Difficulty, Category, Question, fetchQuestions } from './Utils';
@@ -24,8 +25,8 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h1>Quiz Game</h1>
+    <div className="container">
+      <h1 className="text-center">Quiz Game</h1>
       {!isStarted
       ? 
       <div>
@@ -36,7 +37,7 @@ function App() {
       questions.length === 0 ?
       <p>Loading Questions...</p>
       :
-      questions.map((question, index) => <p key={index} dangerouslySetInnerHTML={{__html: question.question}}></p>)
+      <QuestionCard questions={questions}/>
       }
     </div>
   );

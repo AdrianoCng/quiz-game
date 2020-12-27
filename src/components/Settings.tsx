@@ -84,6 +84,11 @@ const Settings: React.FC<Props> = ({setDifficulty, setCategory, category}) => {
                     <option value={Category.ART}>Art</option>
                     <option value={Category.CELEBRITIES}>Celebrities</option>
                     <option value={Category.ANIMALS}>Animals</option>
+                    <option value={Category.VEHICLES}>Vehicles</option>
+                    <option value={Category.COMICS}>Comics</option>
+                    <option value={Category.GADGETS}>Gadgets</option>
+                    <option value={Category.ANIME_AND_MANGA}>Anime and Manga</option>
+                    <option value={Category.CARTOON_AND_ANIMATIONS}>Cartoon and Animations</option>
                 </select>
             </div>
         </div>

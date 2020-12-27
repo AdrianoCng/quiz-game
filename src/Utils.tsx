@@ -44,3 +44,19 @@ export const fetchQuestions = async (difficulty: Difficulty, category: Category)
     const {results} = await (await fetch(`https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple&category=${category}`)).json();
     return results;
 }
+
+export const shuffleAnswers = (array: string[]) => {
+    let counter = array.length;
+
+    while (counter > 0) {
+        const index = Math.floor(Math.random() * counter);
+        
+        counter--;
+
+        const temp = array[counter];
+        array[counter] = array[index];
+        array[index] = temp;
+    }
+
+    return array;
+}
