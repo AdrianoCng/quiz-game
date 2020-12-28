@@ -11,6 +11,7 @@ export type Question = {
     incorrect_answers: string[];
     question: string;
     type: string;
+    answers: string[];
 }
 
 export enum Category {
@@ -42,7 +43,10 @@ export enum Category {
 
 export const fetchQuestions = async (difficulty: Difficulty, category: Category): Promise<Question[]> => {
     const {results} = await (await fetch(`https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple&category=${category}`)).json();
-    return results;
+    return results.map((question: Question) => ({
+        ...question,
+        answers: shuffleAnswers([...question.incorrect_answers, question.correct_answer])
+    }));
 }
 
 export const shuffleAnswers = (array: string[]) => {
