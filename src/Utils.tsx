@@ -1,8 +1,8 @@
 export enum Difficulty {
     EASY = "easy",
     MEDIUM = "medium",
-    HARD = "hard"
-};
+    HARD = "hard",
+}
 
 export type Question = {
     category: string;
@@ -12,7 +12,12 @@ export type Question = {
     question: string;
     type: string;
     answers: string[];
-}
+};
+
+export type QuizState = {
+    questions: Question[];
+    response_code: number;
+};
 
 export enum Category {
     GENERAL_KNOWLEDGE = "9",
@@ -38,23 +43,39 @@ export enum Category {
     COMICS = "29",
     GADGETS = "30",
     ANIME_AND_MANGA = "31",
-    CARTOON_AND_ANIMATIONS = "32"
+    CARTOON_AND_ANIMATIONS = "32",
 }
 
-export const fetchQuestions = async (difficulty: Difficulty, category: Category): Promise<Question[]> => {
-    const {results} = await (await fetch(`https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple&category=${category}`)).json();
-    return results.map((question: Question) => ({
+export const fetchQuestions = async (
+    difficulty: Difficulty,
+    category: Category
+): Promise<QuizState> => {
+    const { results, response_code } = await (
+        await fetch(
+            `https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple&category=${category}`
+        )
+    ).json();
+
+    const questions: Question[] = results.map((question: Question) => ({
         ...question,
-        answers: shuffleAnswers([...question.incorrect_answers, question.correct_answer])
+        answers: shuffleAnswers([
+            ...question.incorrect_answers,
+            question.correct_answer,
+        ]),
     }));
-}
+
+    return {
+        response_code,
+        questions,
+    };
+};
 
 export const shuffleAnswers = (array: string[]) => {
     let counter = array.length;
 
     while (counter > 0) {
         const index = Math.floor(Math.random() * counter);
-        
+
         counter--;
 
         const temp = array[counter];
@@ -63,4 +84,4 @@ export const shuffleAnswers = (array: string[]) => {
     }
 
     return array;
-}
+};

@@ -1,41 +1,48 @@
 import React, { useState } from "react";
 
 // components
-import Settings from "./components/Settings";
-import QuestionCard from "./components/QuestionCard";
-import Results from "./components/Results";
+import Settings from "./components/Settings/Settings";
+import QuestionCard from "./components/QuestionCard/QuestionCard";
+import Results from "./components/Results/Results";
 
 // Types
-import { Difficulty, Category, Question } from "./Utils";
+import { Difficulty, Category, Question, QuizState } from "./Utils";
 
 // Utils
 import { fetchQuestions } from "./Utils";
 
-function App() {
+// styles
+import { GlobalStyles, Wrapper, Button } from "./App.styles";
+
+const App = () => {
     const [difficulty, setDifficulty] = useState(Difficulty.EASY);
     const [category, setCategory] = useState(Category.GENERAL_KNOWLEDGE);
-    const [questions, setQuestions] = useState<Question[]>([]);
+    const [quiz, setQuiz] = useState<QuizState>({
+        questions: [],
+        response_code: 0,
+    });
     const [isStarted, setIsStarted] = useState(false);
     const [number, setNumber] = useState(0);
     const [score, setScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [userAnswered, setuserAnswered] = useState(false);
+    const [userAnswered, setUserAnswered] = useState(false);
 
     const startTrivia = async () => {
         setIsStarted(true);
         const data = await fetchQuestions(difficulty, category);
-        setQuestions(data);
+
+        setQuiz(data);
     };
 
     const resetTrivia = () => {
         setDifficulty(Difficulty.EASY);
         setCategory(Category.GENERAL_KNOWLEDGE);
-        setQuestions([]);
+        setQuiz({ questions: [], response_code: 0 });
         setIsStarted(false);
         setNumber(0);
         setScore(0);
         setGameOver(false);
-        setuserAnswered(false);
+        setUserAnswered(false);
     };
 
     const checkAnswer = ({
@@ -43,7 +50,7 @@ function App() {
     }: React.MouseEvent<HTMLButtonElement>) => {
         const { iscorrect } = currentTarget.dataset;
 
-        setuserAnswered(true);
+        setUserAnswered(true);
 
         if (iscorrect === "true") setScore((prev) => prev + 1);
 
@@ -53,39 +60,46 @@ function App() {
                 return;
             }
             setNumber((prev) => (prev < 9 ? prev + 1 : (prev = 9)));
-            setuserAnswered(false);
-        }, 1500);
+            setUserAnswered(false);
+        }, 1000);
     };
 
     return (
-        <div className="container">
-            <h1 className="text-center">Quiz Game</h1>
-            {!isStarted ? (
-                <div>
-                    <Settings
-                        setDifficulty={setDifficulty}
-                        setCategory={setCategory}
-                        category={category}
+        <>
+            <GlobalStyles />
+            <Wrapper>
+                <h1 className="title">Quiz Game</h1>
+                {!isStarted ? (
+                    <div>
+                        <Settings
+                            setDifficulty={setDifficulty}
+                            setCategory={setCategory}
+                            category={category}
+                        />
+                        <Button onClick={startTrivia}>Start</Button>
+                    </div>
+                ) : quiz.questions.length === 0 && quiz.response_code === 0 ? (
+                    <p>Loading Questions...</p>
+                ) : quiz.response_code === 1 ? (
+                    <div className="d-flex flex-column align-items-center">
+                        <p>Questions not available at the moment.</p>
+                        <p>Please choose another category.</p>
+                        <Button onClick={resetTrivia}>Go back</Button>
+                    </div>
+                ) : !gameOver ? (
+                    <QuestionCard
+                        questions={quiz.questions}
+                        number={number}
+                        callback={checkAnswer}
+                        score={score}
+                        userAnswered={userAnswered}
                     />
-                    <button className="btn btn-primary" onClick={startTrivia}>
-                        Start
-                    </button>
-                </div>
-            ) : questions.length === 0 ? (
-                <p>Loading Questions...</p>
-            ) : !gameOver ? (
-                <QuestionCard
-                    questions={questions}
-                    number={number}
-                    callback={checkAnswer}
-                    score={score}
-                    userAnswered={userAnswered}
-                />
-            ) : (
-                <Results score={score} resetTrivia={resetTrivia} />
-            )}
-        </div>
+                ) : (
+                    <Results score={score} resetTrivia={resetTrivia} />
+                )}
+            </Wrapper>
+        </>
     );
-}
+};
 
 export default App;
