@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 // components
 import Settings from "./components/Settings/Settings";
@@ -6,7 +6,7 @@ import QuestionCard from "./components/QuestionCard/QuestionCard";
 import Results from "./components/Results/Results";
 
 // Types
-import { Difficulty, Category, Question, QuizState } from "./Utils";
+import { Difficulty, Category, QuizState } from "./Utils";
 
 // Utils
 import { fetchQuestions } from "./Utils";
@@ -27,8 +27,21 @@ const App = () => {
     const [gameOver, setGameOver] = useState(false);
     const [userAnswered, setUserAnswered] = useState(false);
 
+    // Stopwatch
+    const [timer, setTimer] = useState(0);
+    const timerRef = useRef<NodeJS.Timeout>(
+        (null as unknown) as NodeJS.Timeout
+    );
+
+    const startTimer = () => {
+        timerRef.current = setInterval(() => {
+            setTimer((prevTimer) => prevTimer + 1);
+        }, 1000);
+    };
+
     const startTrivia = async () => {
         setIsStarted(true);
+        startTimer();
         const data = await fetchQuestions(difficulty, category);
 
         setQuiz(data);
@@ -43,6 +56,8 @@ const App = () => {
         setScore(0);
         setGameOver(false);
         setUserAnswered(false);
+        setTimer(0);
+        clearInterval(timerRef.current);
     };
 
     const checkAnswer = ({
@@ -57,6 +72,7 @@ const App = () => {
         setTimeout(() => {
             if (number >= 9) {
                 setGameOver(true);
+                clearInterval(timerRef.current);
                 return;
             }
             setNumber((prev) => (prev < 9 ? prev + 1 : (prev = 9)));
@@ -93,9 +109,14 @@ const App = () => {
                         callback={checkAnswer}
                         score={score}
                         userAnswered={userAnswered}
+                        timer={timer}
                     />
                 ) : (
-                    <Results score={score} resetTrivia={resetTrivia} />
+                    <Results
+                        score={score}
+                        timer={timer}
+                        resetTrivia={resetTrivia}
+                    />
                 )}
             </Wrapper>
         </>

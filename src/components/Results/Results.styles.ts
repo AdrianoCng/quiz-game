@@ -5,7 +5,10 @@ export const ResultsStyles = styled.div`
     flex-direction: column;
     align-items: center;
 
-    > h1,
+    > h1 {
+        font-size: 3em;
+    }
+
     > h2 {
         font-size: 3.5em;
     }

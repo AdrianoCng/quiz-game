@@ -103,9 +103,6 @@ const Settings: React.FC<Props> = ({
                     <option value={Category.BOOKS}>Books</option>
                     <option value={Category.FILM}>Film</option>
                     <option value={Category.MUSIC}>Music</option>
-                    <option value={Category.MUSICALS_AND_THEATRES}>
-                        Musicals and Theatres
-                    </option>
                     <option value={Category.TELEVISION}>Television</option>
                     <option value={Category.VIDEO_GAMES}>Video Games</option>
                     <option value={Category.BOARD_GAMES}>Board Games</option>
@@ -118,13 +115,10 @@ const Settings: React.FC<Props> = ({
                     <option value={Category.SPORTS}>Sports</option>
                     <option value={Category.GEOGRAPHY}>Geography</option>
                     <option value={Category.HISTORY}>History</option>
-                    <option value={Category.POLITICS}>Politics</option>
-                    <option value={Category.ART}>Art</option>
                     <option value={Category.CELEBRITIES}>Celebrities</option>
                     <option value={Category.ANIMALS}>Animals</option>
                     <option value={Category.VEHICLES}>Vehicles</option>
                     <option value={Category.COMICS}>Comics</option>
-                    <option value={Category.GADGETS}>Gadgets</option>
                     <option value={Category.ANIME_AND_MANGA}>
                         Anime and Manga
                     </option>

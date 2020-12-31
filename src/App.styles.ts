@@ -33,6 +33,10 @@ export const GlobalStyles = createGlobalStyle`
     button {
         font-size: inherit;
     }
+
+    .score {
+        font-size: 1.2em;
+    }
 `;
 
 // Wrapper
