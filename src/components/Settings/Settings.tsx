@@ -90,43 +90,41 @@ const Settings: React.FC<Props> = ({
                     Hard
                 </Button>
             </ButtonGroup>
-            <div>
-                <label htmlFor="category">Choose a topic:</label>
-                <select
-                    id="category"
-                    value={category}
-                    onChange={handleCategorySelection}
-                >
-                    <option value={Category.GENERAL_KNOWLEDGE}>
-                        General Knowledge
-                    </option>
-                    <option value={Category.BOOKS}>Books</option>
-                    <option value={Category.FILM}>Film</option>
-                    <option value={Category.MUSIC}>Music</option>
-                    <option value={Category.TELEVISION}>Television</option>
-                    <option value={Category.VIDEO_GAMES}>Video Games</option>
-                    <option value={Category.BOARD_GAMES}>Board Games</option>
-                    <option value={Category.SCIENCE_AND_NATURE}>
-                        Science and Nature
-                    </option>
-                    <option value={Category.COMPUTERS}>Computers</option>
-                    <option value={Category.MATHEMATICS}>Mathematics</option>
-                    <option value={Category.MYTHOLOGY}>Mythology</option>
-                    <option value={Category.SPORTS}>Sports</option>
-                    <option value={Category.GEOGRAPHY}>Geography</option>
-                    <option value={Category.HISTORY}>History</option>
-                    <option value={Category.CELEBRITIES}>Celebrities</option>
-                    <option value={Category.ANIMALS}>Animals</option>
-                    <option value={Category.VEHICLES}>Vehicles</option>
-                    <option value={Category.COMICS}>Comics</option>
-                    <option value={Category.ANIME_AND_MANGA}>
-                        Anime and Manga
-                    </option>
-                    <option value={Category.CARTOON_AND_ANIMATIONS}>
-                        Cartoon and Animations
-                    </option>
-                </select>
-            </div>
+            <label htmlFor="category">Choose a topic:</label>
+            <select
+                id="category"
+                value={category}
+                onChange={handleCategorySelection}
+            >
+                <option value={Category.GENERAL_KNOWLEDGE}>
+                    General Knowledge
+                </option>
+                <option value={Category.BOOKS}>Books</option>
+                <option value={Category.FILM}>Film</option>
+                <option value={Category.MUSIC}>Music</option>
+                <option value={Category.TELEVISION}>Television</option>
+                <option value={Category.VIDEO_GAMES}>Video Games</option>
+                <option value={Category.BOARD_GAMES}>Board Games</option>
+                <option value={Category.SCIENCE_AND_NATURE}>
+                    Science and Nature
+                </option>
+                <option value={Category.COMPUTERS}>Computers</option>
+                <option value={Category.MATHEMATICS}>Mathematics</option>
+                <option value={Category.MYTHOLOGY}>Mythology</option>
+                <option value={Category.SPORTS}>Sports</option>
+                <option value={Category.GEOGRAPHY}>Geography</option>
+                <option value={Category.HISTORY}>History</option>
+                <option value={Category.CELEBRITIES}>Celebrities</option>
+                <option value={Category.ANIMALS}>Animals</option>
+                <option value={Category.VEHICLES}>Vehicles</option>
+                <option value={Category.COMICS}>Comics</option>
+                <option value={Category.ANIME_AND_MANGA}>
+                    Anime and Manga
+                </option>
+                <option value={Category.CARTOON_AND_ANIMATIONS}>
+                    Cartoon and Animations
+                </option>
+            </select>
         </SettingsStyles>
     );
 };

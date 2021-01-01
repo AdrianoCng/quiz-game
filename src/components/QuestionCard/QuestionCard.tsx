@@ -1,5 +1,4 @@
 import React from "react";
-// import Button from "react-bootstrap/Button";
 
 // Types
 import { Question } from "../../Utils";
@@ -8,7 +7,7 @@ import { Question } from "../../Utils";
 import { formatTime } from "../../Utils";
 
 // Styles
-import { QuestionButton } from "./QuestionCard.styles";
+import { QuestionButton, QuestionCardStyles } from "./QuestionCard.styles";
 
 type Props = {
     questions: Question[];
@@ -28,27 +27,25 @@ const QuestionCard: React.FC<Props> = ({
     callback,
 }) => {
     return (
-        <div className="container">
-            <div className="d-flex justify-content-between">
+        <QuestionCardStyles>
+            <div className="stats">
                 <div>
                     <p>Time: {formatTime(timer)}</p>
                     <p>
                         Score: <span className="score">{score}</span>
                     </p>
                 </div>
-                <div className="d-flex justify-content-end">
+                <div>
                     <p>Question {number + 1} / 10</p>
                 </div>
             </div>
 
-            <div>
-                <p
-                    className="font-italic"
-                    dangerouslySetInnerHTML={{
-                        __html: questions[number].question,
-                    }}
-                ></p>
-            </div>
+            <p
+                className="question"
+                dangerouslySetInnerHTML={{
+                    __html: questions[number].question,
+                }}
+            ></p>
             {questions[number].answers.map((answer, index) => {
                 return (
                     <QuestionButton
@@ -75,7 +72,7 @@ const QuestionCard: React.FC<Props> = ({
                     />
                 );
             })}
-        </div>
+        </QuestionCardStyles>
     );
 };
 

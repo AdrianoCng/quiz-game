@@ -1,6 +1,33 @@
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
+export const QuestionCardStyles = styled.div`
+    width: 100%;
+    overflow: auto;
+
+    .score {
+        font-size: 1.2em;
+    }
+
+    .stats {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .question {
+        font-style: italic;
+        margin: 0 10px 30px;
+        text-align: justify;
+    }
+
+    @media only screen and (max-width: 320px) {
+        .stats {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+`;
+
 export const QuestionButton = styled(Button)`
     background-image: ${({ variant }) =>
         variant === "success"

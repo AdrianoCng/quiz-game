@@ -97,7 +97,7 @@ const App = () => {
                 ) : quiz.questions.length === 0 && quiz.response_code === 0 ? (
                     <p>Loading Questions...</p>
                 ) : quiz.response_code === 1 ? (
-                    <div className="d-flex flex-column align-items-center">
+                    <div className="text-center">
                         <p>Questions not available at the moment.</p>
                         <p>Please choose another category.</p>
                         <Button onClick={resetTrivia}>Go back</Button>

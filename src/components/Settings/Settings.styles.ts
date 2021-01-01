@@ -4,15 +4,16 @@ export const SettingsStyles = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 5px;
+    width: 100%;
+    overflow: auto;
 
     label {
-        margin-right: 1rem;
+        margin-right: 15px;
     }
 
     select {
-        padding-top: 5px;
         border: none;
+        margin-bottom: 15px;
     }
 
     select:focus {
@@ -20,6 +21,6 @@ export const SettingsStyles = styled.div`
     }
 
     .btn-group {
-        margin-bottom: 1rem;
+        margin-bottom: 15px;
     }
 `;
